@@ -1,4 +1,5 @@
 #!/usr/bin/awk -f
+##!/usr/local/bin/gawk -f
 BEGIN {
 	# ARGV[0] is the filename of the script itself.
 	#ARGV[1] = "ab.txt"
@@ -8,12 +9,18 @@ BEGIN {
     
 }
 
-BEGIN { 
-	pat = "安くなります" 
-	reg = "ではありませんでした"
+BEGIN {
+	pat = "なります"
 }
 
-$0 ~ pat {print; print FNR; print length($0)}  # FNR 当前行数
-#$0 ~ reg {print}
-END { print NR }
+FILENAME == ARGV[1] {
+	if ( match($0, pat) ) {
+		a[FNR] = $0
+	} 
+}
+END {
+	for (k in a) {
+		printf "%s\n\t%s\n", pat, a[k]
+	}
+}
 

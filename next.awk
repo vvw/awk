@@ -2,7 +2,8 @@
 BEGIN {
 	# ARGV[0] is the filename of the script itself.
 	ARGV[1] = "ab"
-    ARGV[2] = "cd"
+    #ARGV[2] = "cd"
+    ARGV[2] = "研究社新和英大辞典第５版.txt"
     # Set ARGV length.
     ARGC = 3    
 }
@@ -16,9 +17,12 @@ FILENAME == "cd" {
 		#split (ab[k], a)
 		reg = ab[i]
 		if(match($0, reg)) {
-			printf "%s\n\t%s\n", reg, $0
+			printf "%s", reg
 		}
 	}
+}
+END {
+	print FNR
 }
 
 
