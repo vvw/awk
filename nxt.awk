@@ -6,21 +6,24 @@ BEGIN {
     ARGV[1] = "研究社新和英大辞典第５版.txt"
     # Set ARGV length.
     ARGC = 2
-    
 }
 
 BEGIN {
-	pat = "なります"
+	f = "ab"
+
 }
 
 FILENAME == ARGV[1] {
-	if ( match($0, pat) ) {
-		a[FNR] = $0
-	} 
+	while ( (getline pat < f) > 0 ) {
+		if(match($0, pat)) {
+			a [++i] = pat "\n" $0
+		}
+	}
+	close (f)
 }
 END {
 	for (k in a) {
-		printf "%s\n\t%s\n", pat, a[k]
-	}
+		print a[k]
+	}	
 }
 
